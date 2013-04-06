@@ -16,37 +16,44 @@ define([
 			'edit/:id':   'editAction',
 			'list':       'listAction',
 			'login':      'loginAction',
-			'':           'indexAction',
-			'*actions':   'indexAction'
+			'':           'listAction',
+			'*actions':   'listAction'
 		},
 
 		createAction: function (id) {
-			new ViewCreate({el: '#content', id: id}).render();
+			if (config.user) {
+				config.view = new ViewCreate({el: '#content', id: id}).render();
+			} else {
+				this.navigate('login', {trigger: true});
+			}
 		},
 
 		deleteAction: function (id) {
-			new ViewDelete({el: '#content', id: id}).render();
+			if (config.user) {
+				config.view = new ViewDelete({el: '#content', id: id}).render();
+			} else {
+				this.navigate('login', {trigger: true});
+			}
 		},
 
 		editAction: function (id) {
-			new ViewEdit({el: '#content', id: id}).render();
-		},
-
-		indexAction: function () {
-			//we have user's credential... show list of passwords
 			if (config.user) {
-				this.navigate('list', {trigger: true});
+				config.view = new ViewEdit({el: '#content', id: id}).render();
 			} else {
 				this.navigate('login', {trigger: true});
 			}
 		},
 
 		listAction: function () {
-			new ViewList({el: '#content'}).render();
+			if (config.user) {
+				config.view = new ViewList({el: '#content'}).render();
+			} else {
+				this.navigate('login', {trigger: true});
+			}
 		},
 
 		loginAction: function () {
-			new ViewLogin({el: '#content'}).render();
+			config.view = new ViewLogin({el: '#content'}).render();
 		}
 
 	};
