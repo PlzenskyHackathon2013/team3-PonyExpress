@@ -28,18 +28,16 @@ exports.findAll = function(req, res) {
     });
 };
 
-exports.deleteByUsername =function(req, res){
-  var username = req.params.username;
-  console.log('Deleting user: ' + JSON.stringify(username));
+exports.delete =function(req, res){
+  console.log('Deleting user: ' + JSON.stringify(global.username));
   db.collection('users', function(err, collection) {
-    collection.remove({"username": username}, function(err, items) {
+    collection.remove({"username": global.username}, function(err, items) {
       res.send(204);
     });
   });
 };
 
-exports.deleteByUsernameAndId =function(req, res){
-  var username = req.params.username;
+exports.deleteById =function(req, res){
   var id = req.params.id;
 
   console.log('Deleting user: ' + JSON.stringify(username));

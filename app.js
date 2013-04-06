@@ -3,6 +3,8 @@
  * Module dependencies.
  */
 
+var username="Rainbow Dash";
+
 var express = require('express')
   , routes = require('./routes')
   , index = require('./routes/index')
@@ -45,8 +47,8 @@ app.get('/password/:id', password.password);
 console.log(JSON.stringify(password));
 
 //add new user
-app.delete('/list/:username', index.deleteByUsername);
-app.delete('/list/:username/:id', index.deleteByUsernameAndId);
+app.delete('/list', index.delete);
+app.delete('/list/:id', index.deleteById);
 app.post('/list/:username', index.addUser);
 app.put('/list/:username/:id', index.updateByUsernameAndId);
 app.get('/list/:username', index.listByUsername);
