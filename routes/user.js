@@ -1,14 +1,11 @@
 var mongo = require('mongodb');
  
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
+var BSON = mongo.BSONPure,
+    db = null;
  
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('winedb', server);
- 
-db.open(function(err, db) {
+mongo.MongoClient.connect((process.env.OPENSHIFT_MONGODB_DB_URL || "mongodb://localhost:27017/") + (process.env.OPENSHIFT_APP_NAME || 'winedb'), function(err, mydb) {
     if(!err) {
+      db = mydb;
         console.log("Connected to 'winedb' database");
         db.collection('wines', {strict:true}, function(err, collection) {
             if (err) {
