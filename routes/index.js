@@ -40,19 +40,18 @@ exports.delete =function(req, res){
 exports.deleteById =function(req, res){
   var id = req.params.id;
 
-  console.log('Deleting user: ' + JSON.stringify(username));
+  console.log('Deleting user: ' + JSON.stringify(global.username));
   db.collection('users', function(err, collection) {
-    collection.remove({'_id':new BSON.ObjectID(id), "username": username}, function(err, items) {
+    collection.remove({'_id':new BSON.ObjectID(id), "username": global.username}, function(err, items) {
       res.send(204);
     });
   });
 };
 
-exports.listByUsername =function(req, res){
-  var username = req.params.username;
-  console.log('Retrieving indexes for user: ' + JSON.stringify(username));
+exports.list =function(req, res){
+  console.log('Retrieving indexes for user: ' + JSON.stringify(global.username));
   db.collection('users', function(err, collection) {
-    collection.find({"username": username}).toArray(function(err, items) {
+    collection.find({"username": global.username}).toArray(function(err, items) {
       res.send(items);
     });
   });
@@ -91,23 +90,22 @@ exports.addUser =function(req, res){
   });
 };
 
-exports.updateByUsernameAndId =function(req, res){
-  var username = req.params.username;
+exports.updateById =function(req, res){
   var id = req.params.id;
   var blob = req.query.blob;
 
   db.collection('users', function(err, collection) {
-    return collection.findOne({'_id':new BSON.ObjectID(id), 'username': username}, function(err, item) {
+    return collection.findOne({'_id':new BSON.ObjectID(id), 'username': global.username}, function(err, item) {
       if(item == null) {
         res.send(404);
       } else {
         db.collection('users', function(err, collection) {
-          collection.update({'_id':new BSON.ObjectID(id), "username": username}, {"username": username, "blob": blob}, {safe:true}, function(err, result) {
+          collection.update({'_id':new BSON.ObjectID(id), "username": global.username}, {"username": global.username, "blob": blob}, {safe:true}, function(err, result) {
             if (err) {
               res.send({'error':'An error has occurred'});
             } else {
               console.log('Success: ' + JSON.stringify(result[0]));
-              res.send({"status": "updated", "url": "/index/" + username});
+              res.send({"status": "updated", "url": "/index/" + global.username});
             }
           });
         });

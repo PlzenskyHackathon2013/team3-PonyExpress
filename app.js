@@ -50,8 +50,8 @@ console.log(JSON.stringify(password));
 app.delete('/list', index.delete);
 app.delete('/list/:id', index.deleteById);
 app.post('/list/:username', index.addUser);
-app.put('/list/:username/:id', index.updateByUsernameAndId);
-app.get('/list/:username', index.listByUsername);
+app.put('/list//:id', index.updateById);
+app.get('/list/', index.list);
 app.get('/index', index.findAll);
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddress'), function(){
