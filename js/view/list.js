@@ -5,16 +5,45 @@ define(['backbone', 'underscore', 'text!template/list.html', 'config', 'collecti
 
 		template: _.template(templateList),
 
-		render: function () {
-			var indexes = this._getIndexes();
+		events: {
+			'click #create': '_onClickCreate',
+			'click .edit':   '_onClickEdit'
+		},
 
-			this.$el.html(this.template(indexes));
+		initialize: function () {
+			// this._getIndexes().on('change', function () {
+			// 	//mock
+			// }, this);
+		},
+
+		render: function () {
+			//mock
+			var data = {
+				passwords: [
+					{id: 1, name: 'Name 1', username: 'test001', password: '123'},
+					{id: 2, name: 'Name 2', username: 'test002', password: '123'}
+				]
+			};
+
+			this.$el.html(this.template(data));
 		},
 
 		_getIndexes: function () {
-			config.indexes = config.indexes || new CollectionIndexes().fetch({password: config.user.get('password')});
+
+
+			config.indexes = config.indexes || new CollectionIndexes();
 
 			return config.indexes;
+		},
+
+		_onClickCreate: function () {
+			config.router.navigate('create', {trigger: true});
+		},
+
+		_onClickEdit: function (event) {
+			var id = $(event.target).attr('data-id');
+
+			config.router.navigate('edit/' + id, {trigger: true});
 		}
 
 	};
