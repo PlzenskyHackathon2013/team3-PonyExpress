@@ -11,6 +11,10 @@ var express = require('express')
   , path = require('path');
 
 var app = express();
+app.configure(function() {
+  app.use(express.logger('dev'));
+  app.use(express.bodyParser());
+});
 
 // all environments
 app.set('ipaddress', process.env.OPENSHIFT_INTERNAL_IP);
@@ -34,8 +38,10 @@ app.get('/password', password.storage);
 
 app.get('/password/:id', password.password);
 console.log(JSON.stringify(password));
-app.get('/index/:username', index.findByUsername);
 
+app.get('/index/:username', index.findByUsername);
+app.post('/index/:username', index.addUser);
+app.get('/index', index.findAll);
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddress'), function(){
   console.log('Express server listening on port ' + app.get('port'));
