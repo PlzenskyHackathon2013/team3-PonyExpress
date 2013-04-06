@@ -6,9 +6,10 @@ define(['backbone', 'underscore', 'text!template/create.html', 'config', 'model/
 		template: _.template(templateCreate),
 
 		events: {
-			'change input[type="username"]': '_onChangeUsername',
-			'change input[type="password"]': '_onChangePassword',
-			'click input[type="submit"]':    '_onSubmit'
+			'change #createForm-username': '_onChangeUsername',
+			'change #createForm-password': '_onChangePassword',
+			'click #createForm-submit':  '_onSubmit',
+			'click #createForm-cancel':  '_onClickCancel'
 		},
 
 		initialize: function () {
@@ -27,13 +28,21 @@ define(['backbone', 'underscore', 'text!template/create.html', 'config', 'model/
 			this.model.set({password: $(event.target).val()});
 		},
 
-		_onSubmit: function () {
+		_onSubmit: function (e) {
+			e.preventDefault();
 			//they are pswd same?
 			this.model.password = config.user.get('password');
 			alert('SAVE');
 			console.log(this.model.toJSON());
 			//this.model.save();
+		},
+
+		_onClickCancel: function (e) {
+			e.preventDefault();
+
+			config.router.navigate('list', {trigger: true});
 		}
+
 
 	};
 
