@@ -37,16 +37,18 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+app.get('/', routes.index);
+
 app.get('/password', password.storage);
 
 app.get('/password/:id', password.password);
 console.log(JSON.stringify(password));
 
 //add new user
-app.post('/index/:username', index.addUser);
-
-app.put('/index/:username', index.updateByUsername);
-app.get('/index/:username', index.findByUsername);
+app.delete('/list/:username', index.deleteByUsername);
+app.post('/list/:username', index.addUser);
+app.put('/list/:username/:id', index.updateById);
+app.get('/list/:username', index.listByUsername);
 app.get('/index', index.findAll);
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddress'), function(){

@@ -28,6 +28,18 @@ define(['backbone', 'underscore', 'text!template/list.html', 'config', 'collecti
 			this.$el.html(this.template(data));
 		},
 
+		//returs data for template
+		_getData: function () {
+			var data = this._getIndexes().toJSON();
+
+			if (!data.passwords) {
+				data.passwords = [];
+			}
+
+			return data;
+
+		},
+
 		_getIndexes: function () {
 
 
