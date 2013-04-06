@@ -1,9 +1,9 @@
 define(['backbone', 'config'], function (Backbone, config) {
 
-	var ModelPassword = {
+	var ModelIndex = {
 
 	};
 
-	return Backbone.Model.extend(ModelPassword);
+	return Backbone.Model.extend(ModelIndex);
 
 });

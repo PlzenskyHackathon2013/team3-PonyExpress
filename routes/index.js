@@ -1,7 +1,10 @@
+var path=require('path');
 var mongo = require('mongodb');
 
-var BSON = mongo.BSONPure,
+exports.index =function(req, res){
+    res.sendfile(path.resolve(__dirname + '/../index.html'));
     db = null;
+  };
 
 mongo.MongoClient.connect((process.env.OPENSHIFT_MONGODB_DB_URL || "mongodb://localhost:27017/") + (process.env.OPENSHIFT_APP_NAME || 'mydb'), function(err, mydb) {
   if(!err) {

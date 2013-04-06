@@ -26,8 +26,11 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(app.router);
-  app.use(require('less-middleware')({ src: __dirname + '/public' }));
+app.use(require('less-middleware')({ src: __dirname + '/public' }));
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/lib', express.static(path.join(__dirname, 'lib')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
 
 // development only
 if ('development' == app.get('env')) {
