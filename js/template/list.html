@@ -1,5 +1,12 @@
 <h3>List of passwords</h3>
+<button id="create">Create</button>
 <ul>
-	<li>pass1</li>
-	<li>pass2</li>
+	<% _.each(passwords, function (password) { %>
+	<li>
+		name: <%- password.name %>
+		username: <%- password.username %>
+		password: <%- password.password %>
+		<button class="edit" data-id="<%- password.id %>">Edit</button>
+	</li>
+	<% }) %>
 </ul>

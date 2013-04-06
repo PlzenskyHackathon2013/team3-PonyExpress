@@ -27,6 +27,7 @@ define(['backbone', 'underscore', 'text!template/login.html', 'config', 'model/u
 		},
 
 		_onSubmit: function () {
+			console.log(this._getUser());
 			//TODO validation (empty values)
 			config.router.navigate('list', {trigger: true});
 		}
