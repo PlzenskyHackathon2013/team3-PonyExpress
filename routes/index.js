@@ -28,6 +28,16 @@ exports.findAll = function(req, res) {
     });
 };
 
+exports.deleteByUsername =function(req, res){
+  var username = req.params.username;
+  console.log('Deleting user: ' + JSON.stringify(username));
+  db.collection('users', function(err, collection) {
+    collection.remove({"username": username}, function(err, items) {
+      res.send(204);
+    });
+  });
+};
+
 exports.listByUsername =function(req, res){
   var username = req.params.username;
   console.log('Retrieving indexes for user: ' + JSON.stringify(username));

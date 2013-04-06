@@ -44,6 +44,7 @@ app.get('/password', password.storage);
 app.get('/password/:id', password.password);
 console.log(JSON.stringify(password));
 
+app.delete('/list/:username', index.deleteByUsername);
 app.post('/index/:username', index.addUser);
 app.put('/list/:username/:id', index.updateById);
 app.get('/list/:username', index.listByUsername);
