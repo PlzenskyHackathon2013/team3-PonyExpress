@@ -56,16 +56,13 @@ app.delete('/list', index.delete);
 app.delete('/list/:id', index.deleteById);
 
 //get file by id
-app.get('/storage/:file_name', storage.getByFilename);
+app.get('/storage/:file_name', storage.get);
 
 //add new file
-app.post('/storage/', storage.add);
-
-// update file by id
-app.post('/storage/:file_name', storage.updateByFilename);
+app.post('/storage/:file_name', storage.add);
 
 // delete file by id
-app.delete('/storage/:file_name', storage.deleteByFilename);
+app.delete('/storage/:file_name', storage.delete);
 
 //create server
 http.createServer(app).listen(app.get('port'), app.get('ipaddress'), function(){
