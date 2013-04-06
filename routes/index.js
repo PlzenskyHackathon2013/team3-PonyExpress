@@ -53,18 +53,26 @@ exports.addUser =function(req, res){
   });
 };
 
-// exports.updateUser =function(req, res){
-//   var username = req.params.username;
-//   var blob = req.query.blob;
-//   db.collection('users', function(err, collection) {
-//     collection.insert({"username": username, "blob": blob}, {safe:true}, function(err, result) {
-//       if (err) {
-//         res.send({'error':'An error has occurred'});
-//       } else {
-//         console.log('Success: ' + JSON.stringify(result[0]));
-//         res.send(result[0]);
-//       }
-//     });
-//     res.send({"status": "created", "url": "/index/" + username});
-//   });
-// };
+exports.updateByUsername =function(req, res){
+  var username = req.params.username;
+  var blob = req.query.blob;
+
+  db.collection('users', function(err, collection) {
+    return collection.findOne({'username': username}, function(err, item) {
+      if(item == null) {
+        res.send(404);
+      }
+    });
+  });
+
+  db.collection('users', function(err, collection) {
+    collection.update({"username": username}, {"username": username, "blob": blob}, {safe:true}, function(err, result) {
+      if (err) {
+        res.send({'error':'An error has occurred'});
+      } else {
+        console.log('Success: ' + JSON.stringify(result[0]));
+        res.send({"status": "updated", "url": "/index/" + username});
+      }
+    });
+  });
+};
