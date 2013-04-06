@@ -9,6 +9,7 @@ var username="Rainbow Dash";
 var express = require('express')
   , routes = require('./routes')
   , index = require('./routes/index')
+  , storage = require('./routes/storage')
   , password = require('./routes/password')
   , http = require('http')
   , path = require('path');
