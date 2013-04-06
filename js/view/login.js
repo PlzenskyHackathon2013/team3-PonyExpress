@@ -5,9 +5,9 @@ define(['backbone', 'underscore', 'text!template/login.html', 'config', 'model/u
 		template: _.template(templateLogin),
 
 		events: {
-			'change input[type="text"]':     '_onChangeUsername',
-			'change input[type="password"]': '_onChangePassword',
-			'click input[type="submit"]':    '_onSubmit'
+			'change #loginForm-username':     '_onChangeUsername',
+			'change #loginForm-password': '_onChangePassword',
+			'click #loginForm-submit':    '_onSubmit'
 		},
 
 		render: function () {
@@ -26,7 +26,8 @@ define(['backbone', 'underscore', 'text!template/login.html', 'config', 'model/u
 			this._getUser().set({username: $(event.target).val()});
 		},
 
-		_onSubmit: function () {
+		_onSubmit: function (e) {
+			e.preventDefault();
 			console.log(this._getUser());
 			//TODO validation (empty values)
 			config.router.navigate('list', {trigger: true});
