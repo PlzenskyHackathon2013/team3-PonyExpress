@@ -1,0 +1,24 @@
+michal@localhost ~/hackathon/firstapp $ rhc cartridge add mongodb-2.2 --app firstapp
+Adding mongodb-2.2 to application 'firstapp' ... Success
+
+mongodb-2.2 (MongoDB NoSQL Database 2.2)
+----------------------------------------
+  Gears:          Located with nodejs-0.6
+  Connection URL: mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/
+  Database Name:  firstapp
+  Password:       5DlILMpUA7HK
+  Username:       admin
+
+RESULT:
+Added mongodb-2.2 to application firstapp
+
+MongoDB 2.2 database added.  Please make note of these credentials:
+
+       Root User: admin
+   Root Password: 5DlILMpUA7HK
+   Database Name: firstapp
+
+Connection URL: mongodb://$OPENSHIFT_MONGODB_DB_HOST:$OPENSHIFT_MONGODB_DB_PORT/
+
+You can manage your new MongoDB by also embedding rockmongo-1.1
+The rockmongo username and password will be the same as the MongoDB credentials above.
