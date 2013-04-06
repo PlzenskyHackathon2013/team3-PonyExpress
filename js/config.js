@@ -4,7 +4,7 @@ define(function () {
 
 		protocol: 'http://',
 		host:     'localhost',
-		uri:      ''
+		uri:      '',
 
 		getUrl: function (uri, params) {
 			var url = this.protocol + this.host + this.uri + uri;

@@ -1,7 +1,8 @@
-define(['router'], function (Router) {
+define(['router', 'config'], function (Router, config) {
 	
 	//route by current anchor
-	var router = new Router();
+	config.router = new Router();
+
 
 	//enable browser history
 	Backbone.history.start();
