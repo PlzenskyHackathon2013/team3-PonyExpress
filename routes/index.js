@@ -41,7 +41,7 @@ exports.addUser =function(req, res){
   var username = req.params.username;
   var blob = req.query.blob;
   db.collection('users', function(err, collection) {
-    collection.update({"username": username, "blob": blob}, {safe:true, upsert:true}, function(err, result) {
+    collection.update({"username": username}, {"username": username, "blob": blob}, {safe:true, upsert:true}, function(err, result) {
       if (err) {
         res.send({'error':'An error has occurred'});
       } else {
