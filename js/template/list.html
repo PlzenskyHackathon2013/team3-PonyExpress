@@ -1,12 +1,25 @@
 <h3>List of passwords</h3>
-<button id="create">Create</button>
-<ul>
+<table class="table table-striped">
+	<tr>
+		<th colspan="4">
+			<button id="create" class="btn btn-small btn-primary"><i class="icon-plus icon-white"></i> Create new password</button>
+		</th>
+	</tr>
+	<tr>
+		<th>name</th>
+		<th>username</th>
+		<th>password</th>
+		<th></th>
+	</tr>
 	<% _.each(passwords, function (password) { %>
-	<li>
-		name: <%- password.name %>
-		username: <%- password.username %>
-		password: <%- password.password %>
-		<button class="edit" data-id="<%- password.id %>">Edit</button>
-	</li>
+	<tr>
+		<td><%- password.name %></td>
+		<td><%- password.username %></td>
+		<td><%- password.password %></td>
+		<td>
+			<button class="edit btn btn-mini btn-info" data-id="<%- password.id %>"><i class="icon-pencil icon-white"></i> Edit</button>
+			<button class="delete btn btn-mini btn-danger" data-id="<%- password.id %>"><i class="icon-remove icon-white"></i> Delete</button>
+		</td>
+	</tr>
 	<% }) %>
-</ul>
+</table>
