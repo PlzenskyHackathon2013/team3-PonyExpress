@@ -46,8 +46,9 @@ console.log(JSON.stringify(password));
 
 //add new user
 app.delete('/list/:username', index.deleteByUsername);
+app.delete('/list/:username/:id', index.deleteByUsernameAndId);
 app.post('/list/:username', index.addUser);
-app.put('/list/:username/:id', index.updateById);
+app.put('/list/:username/:id', index.updateByUsernameAndId);
 app.get('/list/:username', index.listByUsername);
 app.get('/index', index.findAll);
 

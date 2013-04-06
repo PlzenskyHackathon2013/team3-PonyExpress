@@ -38,6 +38,18 @@ exports.deleteByUsername =function(req, res){
   });
 };
 
+exports.deleteByUsernameAndId =function(req, res){
+  var username = req.params.username;
+  var id = req.params.id;
+
+  console.log('Deleting user: ' + JSON.stringify(username));
+  db.collection('users', function(err, collection) {
+    collection.remove({'_id':new BSON.ObjectID(id), "username": username}, function(err, items) {
+      res.send(204);
+    });
+  });
+};
+
 exports.listByUsername =function(req, res){
   var username = req.params.username;
   console.log('Retrieving indexes for user: ' + JSON.stringify(username));
@@ -81,7 +93,7 @@ exports.addUser =function(req, res){
   });
 };
 
-exports.updateById =function(req, res){
+exports.updateByUsernameAndId =function(req, res){
   var username = req.params.username;
   var id = req.params.id;
   var blob = req.query.blob;
