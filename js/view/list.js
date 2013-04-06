@@ -6,8 +6,9 @@ define(['backbone', 'underscore', 'text!template/list.html', 'config', 'collecti
 		template: _.template(templateList),
 
 		events: {
-			'click #create': '_onClickCreate',
-			'click .edit':   '_onClickEdit'
+			'click #create':            '_onClickCreate',
+			'click .edit-password':     '_onClickEdit',
+			'click .delete-password':   '_onClickDelete'
 		},
 
 		initialize: function () {
@@ -56,6 +57,12 @@ define(['backbone', 'underscore', 'text!template/list.html', 'config', 'collecti
 			var id = $(event.target).attr('data-id');
 
 			config.router.navigate('edit/' + id, {trigger: true});
+		},
+
+		_onClickDelete: function (event) {
+			var id = $(event.target).attr('data-id');
+
+			config.router.navigate('delete/' + id, {trigger: true});
 		}
 
 	};
