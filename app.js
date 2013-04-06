@@ -5,6 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
+  , index = require('./routes/index')
   , password = require('./routes/password')
   , http = require('http')
   , path = require('path');
@@ -29,12 +30,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-
-app.get('/', routes.index);
-
 app.get('/password', password.storage);
 
 app.get('/password/:id', password.password);
+console.log(JSON.stringify(password));
+app.get('/index/:username', index.findByUsername);
 
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddress'), function(){
