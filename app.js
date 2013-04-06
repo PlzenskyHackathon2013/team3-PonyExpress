@@ -43,8 +43,8 @@ app.get('/password/:id', password.password);
 console.log(JSON.stringify(password));
 
 app.post('/index/:username', index.addUser);
-app.put('/index/:username', index.updateByUsername);
-app.get('/index/:username', index.findByUsername);
+app.put('/list/:username', index.updateByUsername);
+app.get('/list/:username', index.listByUsername);
 app.get('/index', index.findAll);
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddress'), function(){
