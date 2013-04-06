@@ -1,5 +1,6 @@
-var path=require('path');
+var path = require('path');
 var mongo = require('mongodb');
+var BSON = mongo.BSONPure;
 
 exports.index =function(req, res){
     res.sendfile(path.resolve(__dirname + '/../index.html'));
@@ -53,25 +54,26 @@ exports.addUser =function(req, res){
   });
 };
 
-exports.updateByUsername =function(req, res){
+exports.updateById =function(req, res){
   var username = req.params.username;
+  var id = req.params.id;
   var blob = req.query.blob;
 
   db.collection('users', function(err, collection) {
-    return collection.findOne({'username': username}, function(err, item) {
+    return collection.findOne({'_id':new BSON.ObjectID(id), 'username': username}, function(err, item) {
       if(item == null) {
         res.send(404);
-      }
-    });
-  });
-
-  db.collection('users', function(err, collection) {
-    collection.update({"username": username}, {"username": username, "blob": blob}, {safe:true}, function(err, result) {
-      if (err) {
-        res.send({'error':'An error has occurred'});
       } else {
-        console.log('Success: ' + JSON.stringify(result[0]));
-        res.send({"status": "updated", "url": "/index/" + username});
+        db.collection('users', function(err, collection) {
+          collection.update({'_id':new BSON.ObjectID(id), "username": username}, {"username": username, "blob": blob}, {safe:true}, function(err, result) {
+            if (err) {
+              res.send({'error':'An error has occurred'});
+            } else {
+              console.log('Success: ' + JSON.stringify(result[0]));
+              res.send({"status": "updated", "url": "/index/" + username});
+            }
+          });
+        });
       }
     });
   });
