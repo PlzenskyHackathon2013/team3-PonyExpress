@@ -37,19 +37,36 @@ exports.findByUsername =function(req, res){
   });
 };
 
+/**
+ * Add a new user with hash
+ */
 exports.addUser =function(req, res){
   var username = req.params.username;
-  var blob = req.query.blob;
+  var blob     = req.query.blob;
+
+  //check if user already exists
   db.collection('users', function(err, collection) {
-    collection.update({"username": username}, {"username": username, "blob": blob}, {safe:true, upsert:true}, function(err, result) {
-      if (err) {
-        res.send({'error':'An error has occurred'});
+    collection.findOne({'username': username}, function(err, item) {
+      if (JSON.stringify(item)=='null') {
+        //insert user
+        db.collection('users', function(err, collection) {
+          collection.update({"username": username}, {"username": username, "blob": blob}, {safe:true, upsert:true}, function(err, result) {
+          if (err) {
+            res.send({'error':'An error has occurred'});
+          } else {
+            res.send(result[0]);
+            }
+          });
+
+          res.send({"status": "created", "url": "/index/" + username});
+        });
+
       } else {
-        console.log('Success: ' + JSON.stringify(result[0]));
-        res.send(result[0]);
+        //user already exists
+        res.send({"error":{"method":"addUser", "username": req.params.username}});
       }
+      res.send(JSON.stringify(item));
     });
-    res.send({"status": "created", "url": "/index/" + username});
   });
 };
 

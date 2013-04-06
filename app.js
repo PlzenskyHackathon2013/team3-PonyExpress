@@ -42,7 +42,9 @@ app.get('/password', password.storage);
 app.get('/password/:id', password.password);
 console.log(JSON.stringify(password));
 
+//add new user
 app.post('/index/:username', index.addUser);
+
 app.put('/index/:username', index.updateByUsername);
 app.get('/index/:username', index.findByUsername);
 app.get('/index', index.findAll);
