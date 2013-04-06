@@ -37,6 +37,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+app.get('/', routes.index);
+
 app.get('/password', password.storage);
 
 app.get('/password/:id', password.password);

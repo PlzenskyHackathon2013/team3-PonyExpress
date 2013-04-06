@@ -1,9 +1,11 @@
-define(['backbone'], function (Backbone) {
+define(['backbone', 'model/index', 'config'], function (Backbone, ModelIndex, config) {
 	
 	var CollectionIndexes = {
 
+        model: ModelIndex,
+
 		url: function () {
-			//resolve url
+			
 		},
         
         toJSON: function(options) {
