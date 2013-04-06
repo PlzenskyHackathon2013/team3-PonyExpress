@@ -1,4 +1,4 @@
-
+var db = require('../src/storage');
 /*
  * GET users listing.
  */
@@ -8,5 +8,7 @@ exports.storage = function(req, res){
 };
 
 exports.password = function(req, res) {
-  res.send("responce with source "+req.params.id);
+  data = db.findUserById(req);
+  db.findAll();
+  res.send("responce with source "+req.params.id + JSON.stringify(data));
 };
