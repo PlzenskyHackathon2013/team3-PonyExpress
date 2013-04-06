@@ -29,9 +29,9 @@ exports.findAll = function(req, res) {
 
 exports.listByUsername =function(req, res){
   var username = req.params.username;
-  console.log('Retrieving passwords for user: ' + JSON.stringify(username));
-  db.collection('passwords', function(err, collection) {
-    collection.find().toArray(function(err, items) {
+  console.log('Retrieving indexes for user: ' + JSON.stringify(username));
+  db.collection('users', function(err, collection) {
+    collection.find({"username": username}).toArray(function(err, items) {
       res.send(items);
     });
   });
