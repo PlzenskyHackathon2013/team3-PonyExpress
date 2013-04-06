@@ -1,8 +1,4 @@
-
-/*
- * GET home page.
- */
-
-exports.index = function(req, res){
-  res.render('index', { title: 'Ponnies' });
+exports.index =function(req, res){
+    res.send('index');
 };
+
