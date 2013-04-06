@@ -15,6 +15,8 @@ define(['backbone', 'underscore', 'text!template/edit.html', 'config', 'model/pa
 			var data = {id: 1, name: 'Name 1', username: 'test001', password: '123'};
 
 			this.$el.html(this.template(data));
+
+			return this;
 		}
 
 	};

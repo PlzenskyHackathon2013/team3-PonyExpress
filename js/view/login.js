@@ -12,6 +12,8 @@ define(['backbone', 'underscore', 'text!template/login.html', 'config', 'model/u
 
 		render: function () {
 			this.$el.html(this.template);
+
+			return this;
 		},
 
 		_getUser: function () {

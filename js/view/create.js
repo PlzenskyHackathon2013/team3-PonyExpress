@@ -17,6 +17,8 @@ define(['backbone', 'underscore', 'text!template/create.html', 'config', 'model/
 
 		render: function () {
 			this.$el.html(this.template);
+
+			return this;
 		},
 
 		_onChangeUsername: function (event) {

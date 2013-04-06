@@ -26,6 +26,8 @@ define(['backbone', 'underscore', 'text!template/list.html', 'config', 'collecti
 			};
 
 			this.$el.html(this.template(data));
+
+			return this;
 		},
 
 		//returs data for template
