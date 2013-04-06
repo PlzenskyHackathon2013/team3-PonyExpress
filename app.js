@@ -12,7 +12,8 @@ var express = require('express')
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('ipaddress', process.env.OPENSHIFT_INTERNAL_IP);
+app.set('port', process.env.OPENSHIFT_INTERNAL_PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -31,6 +32,6 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), app.get('ipaddress'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
