@@ -20,13 +20,12 @@ define(['backbone', 'underscore', 'text!template/list.html', 'config', 'collecti
 		render: function () {
 			//mock
 			var data = {
-				passwords: [
-					{id: 1, name: 'Name 1', username: 'test001', password: '123'},
-					{id: 2, name: 'Name 2', username: 'test002', password: '123'}
-				]
+				passwords: config.passwords.toJSON()
 			};
 
 			this.$el.html(this.template(data));
+
+			return this;
 		},
 
 		//returs data for template
