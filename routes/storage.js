@@ -1,7 +1,9 @@
-var path = require('path');
+//declared variable
+var path  = require('path');
 var mongo = require('mongodb');
-var BSON = mongo.BSONPure;
+var BSON  = mongo.BSONPure;
 
+// connect on db
 mongo.MongoClient.connect((process.env.OPENSHIFT_MONGODB_DB_URL || "mongodb://localhost:27017/") + (process.env.OPENSHIFT_APP_NAME || 'mydb'), function(err, mydb) {
   if(!err) {
     db = mydb;
@@ -9,8 +11,11 @@ mongo.MongoClient.connect((process.env.OPENSHIFT_MONGODB_DB_URL || "mongodb://lo
   }
 });
 
+/*
+ * Get all records for username
+ */
 exports.get = function(req, res) {
-  var username = global.username;
+  var username  = global.username;
   var file_name = req.params.file_name;
 
   db.collection('storage', function(err, collection) {
@@ -21,7 +26,7 @@ exports.get = function(req, res) {
 };
 
 /**
- * Add a new user with hash
+ * Add a new record for username
  */
 exports.add =function(req, res){
   var username  = global.username;
@@ -30,7 +35,7 @@ exports.add =function(req, res){
 
   //check if user already exists
   db.collection('storage', function(err, collection) {
-    collection.update({"file_name": file_name, "username": username}, {"file_name": file_name, "username": username, "blob": blob}, {safe:true, upsert:true}, function(err, result) {
+    collection.insert({"file_name": file_name, "blob": blob}, {safe:true}, function(err, result) {
       if (err) {
         res.send({'error':'An error has occurred'});
       } else {
@@ -40,6 +45,9 @@ exports.add =function(req, res){
   });
 };
 
+/*
+ * Delete record by username
+ */
 exports.delete =function(req, res){
   var username  = global.username;
   var file_name = req.params.file_name;

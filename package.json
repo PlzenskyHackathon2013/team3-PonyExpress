@@ -17,10 +17,10 @@
   "engines": {
     "node": "*"
   },
-  "author": "",
-  "description": "KeePass Online. Output of pilsen hackaton in 6.4.20",
+  "author": "Team3",
+  "description": "KeePass Online. Output of pilsen hackaton in 6.4.2013",
   "repository": {
     "type": "git",
-    "url": "none for now"
+    "url": "None for now"
   }
 }
