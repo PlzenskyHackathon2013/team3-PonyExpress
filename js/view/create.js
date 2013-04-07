@@ -1,5 +1,5 @@
-define(['backbone', 'underscore', 'text!template/create.html', 'config', 'model/password'],
-	function (Backbone, _, templateCreate, config, ModelPassword) {
+define(['backbone', 'underscore', 'text!template/create.html', 'config', 'model/password', 'model/index'],
+	function (Backbone, _, templateCreate, config, ModelPassword, ModelIndex) {
 
 	var ViewCreate = {
 
@@ -8,12 +8,13 @@ define(['backbone', 'underscore', 'text!template/create.html', 'config', 'model/
 		events: {
 			'change #createForm-username': '_onChangeUsername',
 			'change #createForm-password': '_onChangePassword',
-			'click #createForm-submit':  '_onSubmit',
-			'click #createForm-cancel':  '_onClickCancel'
+			'click #createForm-submit':    '_onSubmit',
+			'click #createForm-cancel':    '_onClickCancel'
 		},
 
 		initialize: function () {
 			this.model = new ModelPassword();
+			this.index = new ModelIndex();
 		},
 
 		render: function () {
@@ -34,9 +35,10 @@ define(['backbone', 'underscore', 'text!template/create.html', 'config', 'model/
 			e.preventDefault();
 			//they are pswd same?
 			this.model.password = config.user.get('password');
-			alert('SAVE');
-			console.log(this.model.toJSON());
-			//this.model.save();
+			this.model.save();
+
+			this.index.password = config.user.get('password');
+			this.index.save();
 		},
 
 		_onClickCancel: function (e) {

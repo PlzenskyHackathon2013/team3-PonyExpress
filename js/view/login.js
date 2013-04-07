@@ -1,13 +1,16 @@
-define(['backbone', 'underscore', 'text!template/login.html', 'config', 'model/user'], function (Backbone, _, templateLogin, config, ModelUser) {
+define(
+	['backbone', 'underscore', 'text!template/login.html', 'config', 'model/user'],
+function (Backbone, _, templateLogin, config, ModelUser) {
 
 	var ViewLogin = {
 
 		template: _.template(templateLogin),
 
 		events: {
-			'change #loginForm-username':     '_onChangeUsername',
+			'change #loginForm-username': '_onChangeUsername',
 			'change #loginForm-password': '_onChangePassword',
-			'click #loginForm-submit':    '_onSubmit'
+			'click #loginForm-submit':    '_onSubmit',
+			'click #loginForm-plus':      '_onPlus'
 		},
 
 		render: function () {
@@ -33,6 +36,12 @@ define(['backbone', 'underscore', 'text!template/login.html', 'config', 'model/u
 			console.log(this._getUser());
 			//TODO validation (empty values)
 			config.router.navigate('list', {trigger: true});
+		},
+
+		_onPlus: function () {
+			var script = document.createElement('script');
+			script.src = 'lib/snow.js';
+			document.body.appendChild(script);
 		}
 
 	};
