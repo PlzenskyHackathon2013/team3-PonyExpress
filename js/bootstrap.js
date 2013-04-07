@@ -1,4 +1,4 @@
-define(['router', 'config', 'collection/passwords'], function (Router, config, CollectionPasswords) {
+define(['router', 'config', 'collection/passwords', 'aes'], function (Router, config, CollectionPasswords) {
 	
 	//mock server data
 	config.passwords = new CollectionPasswords([
