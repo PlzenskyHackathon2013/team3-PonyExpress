@@ -1,4 +1,4 @@
-//declare variable
+//declared variable
 var path = require('path');
 var mongo = require('mongodb');
 var BSON = mongo.BSONPure;
