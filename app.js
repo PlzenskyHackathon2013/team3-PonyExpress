@@ -40,6 +40,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+app.get('/', routes.homepage);
+
 //get all list
 app.get('/list/', index.list);
 

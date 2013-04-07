@@ -16,6 +16,11 @@ mongo.MongoClient.connect((process.env.OPENSHIFT_MONGODB_DB_URL || "mongodb://lo
   }
 });
 
+
+exports.homepage =function(req, res){
+    res.sendfile(path.resolve(__dirname + '/../index.html'));
+    db = null;
+  };
 /*
  * Find all records without filter by user
  */
