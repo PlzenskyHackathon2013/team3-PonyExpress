@@ -30,7 +30,7 @@ exports.get = function(req, res) {
  */
 exports.add =function(req, res){
   var username  = global.username;
-  var blob      = req.query.blob;
+  var blob      = req.body.blob;
   var file_name = req.params.file_name;
 
   //check if user already exists

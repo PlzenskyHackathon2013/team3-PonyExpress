@@ -22,7 +22,8 @@ define([
 
 		createAction: function (id) {
 			if (config.user) {
-				config.view = new ViewCreate({el: '#content', id: id}).render();
+				this._clearView();
+				config.view = new ViewCreate({el: this._getSlot(), id: id}).render();
 			} else {
 				this.navigate('login', {trigger: true});
 			}
@@ -30,7 +31,8 @@ define([
 
 		deleteAction: function (id) {
 			if (config.user) {
-				config.view = new ViewDelete({el: '#content', id: id}).render();
+				this._clearView();
+				config.view = new ViewDelete({el: this._getSlot(), id: id}).render();
 			} else {
 				this.navigate('login', {trigger: true});
 			}
@@ -38,7 +40,8 @@ define([
 
 		editAction: function (id) {
 			if (config.user) {
-				config.view = new ViewEdit({el: '#content', id: id}).render();
+				this._clearView();
+				config.view = new ViewEdit({el: this._getSlot(), id: id}).render();
 			} else {
 				this.navigate('login', {trigger: true});
 			}
@@ -46,14 +49,27 @@ define([
 
 		listAction: function () {
 			if (config.user) {
-				config.view = new ViewList({el: '#content'}).render();
+				this._clearView();
+				config.view = new ViewList({el: this._getSlot()}).render();
 			} else {
 				this.navigate('login', {trigger: true});
 			}
 		},
 
 		loginAction: function () {
-			config.view = new ViewLogin({el: '#content'}).render();
+			this._clearView();
+			config.view = new ViewLogin({el: this._getSlot}).render();
+		},
+
+		_getSlot: function () {
+			$('#content').html('');
+			return $('<div/>').appendTo('#content');
+		},
+
+		_clearView: function () {
+			if (config.view) {
+				config.view.remove();
+			}
 		}
 
 	};

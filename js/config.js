@@ -3,7 +3,7 @@ define(function () {
 	var config = {
 
 		protocol: 'http://',
-		host:     'localhost',
+		host:     'localhost:8080',
 		uri:      '',
 
 		getUrl: function (uri, params) {
