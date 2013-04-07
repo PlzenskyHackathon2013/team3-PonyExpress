@@ -54,7 +54,7 @@ exports.deleteById = function(req, res){
 
   console.log('Deleting user: ' + JSON.stringify(username));
   db.collection('users', function(err, collection) {
-    collection.remove({'_id':new BSON.ObjectID(id), "username": username}, function(err, items) {
+    collection.remove({'_id':new BSON.ObjectID(parseInt(id)), "username": username}, function(err, items) {
       res.send(204);
     });
   });
@@ -78,35 +78,23 @@ exports.list =function(req, res){
  * Add a new record
  */
 exports.add =function(req, res){
+  console.log('add a record - list');
+
   var blob     = req.query.blob;
   var username = global.username;
 
-  //check if user already exists
+  //insert
   db.collection('users', function(err, collection) {
-    collection.findOne({'username': username}, function(err, item) {
-      if (JSON.stringify(item)=='null') {
-        //insert user
-        db.collection('users', function(err, collection) {
-          collection.update({"username": username}, {"username": username, "blob": blob}, {safe:true, upsert:true}, function(err, result) {
-          if (err) {
-            res.send({'error':'An error has occurred'});
-          } else {
-            res.send(result[0]);
-            }
-          });
-
-          res.send(201, {"status": "created", "url": "/index/" + username});
-        });
-
+    collection.insert({"username": username, "blob": blob}, {safe:true}, function(err, result) {
+      if (err) {
+        res.send({'error':'An error has occurred'});
       } else {
-        //user already exists
-        res.send(409, {"error":{"method":"addUser", "username": username}});
+        res.send(result[0]);
       }
-      res.send(JSON.stringify(item));
     });
+    res.send(201, {"status": "created", "url": "/index/" + username});
   });
 };
-
 
 /*
  * Update record by id
@@ -117,14 +105,14 @@ exports.updateById =function(req, res){
   var username = global.username;
 
   db.collection('users', function(err, collection) {
-    return collection.findOne({'_id':new BSON.ObjectID(id), 'username': username}, function(err, item) {
+    return collection.findOne({'_id':new BSON.ObjectID(parseInt(id)), 'username': username}, function(err, item) {
       if(item == null) {
-        res.send(404, {"error":{"method":"updateById", "username": username}});
+        res.send(404, {"error":{"method":"updateById", "username": username, "message":"This id not exists"}});
       } else {
         db.collection('users', function(err, collection) {
-          collection.update({'_id':new BSON.ObjectID(id), "username": username}, {"username": username, "blob": blob}, {safe:true}, function(err, result) {
+          collection.update({'_id':new BSON.ObjectID(parseInt(id)), "username": username}, {"username": username, "blob": blob}, {safe:true}, function(err, result) {
             if (err) {
-              res.send({'error':'An error has occurred'});
+              res.send({'error':{"method":"updateById", "username": username, "message":"An error has occurred"}});
             } else {
               console.log('Success: ' + JSON.stringify(result[0]));
               res.send({"status": "updated", "url": "/index/" + username});

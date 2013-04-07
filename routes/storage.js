@@ -35,7 +35,7 @@ exports.add =function(req, res){
 
   //check if user already exists
   db.collection('storage', function(err, collection) {
-    collection.update({"file_name": file_name, "username": username}, {"file_name": file_name, "username": username, "blob": blob}, {safe:true, upsert:true}, function(err, result) {
+    collection.insert({"file_name": file_name, "blob": blob}, {safe:true}, function(err, result) {
       if (err) {
         res.send({'error':'An error has occurred'});
       } else {
