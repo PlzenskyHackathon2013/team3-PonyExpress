@@ -1,5 +1,5 @@
 //mock username, it will be replace by auth
-var username="Rainbow Dash";
+global.username="Rainbow Dash";
 
 /**
  * Module dependencies.
