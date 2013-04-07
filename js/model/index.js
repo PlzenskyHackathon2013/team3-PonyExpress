@@ -1,17 +1,24 @@
 define(['backbone', 'config'], function (Backbone, config) {
 
 	var ModelIndex = {
-        url: function () {
-			return "";
-		},
-    
+        url: function() {
+            return "";
+        },
         toJSON: function(options) {
             var encrypted = CryptoJS.AES.encrypt(JSON.stringify(this.attributes), this.options.password);
-            return encrypted.toString();
+            var result = new Object();
+            result.blob = encrypted.toString();
+            return result;
         },
         parse: function(response, options) {
-            var decrypted = CryptoJS.AES.decrypt(JSON.parse(response), this.options.password);
-            return decrypted.toString(CryptoJS.enc.Utf8);
+            if (null == response.status) {
+                var decrypted = CryptoJS.AES.decrypt(response.blob, this.options.password);
+                attr = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8));
+                return attr;
+            }
+            else {
+                return response;
+            }
         }
 	};
 	return Backbone.Model.extend(ModelIndex);
