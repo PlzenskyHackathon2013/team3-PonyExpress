@@ -10,7 +10,8 @@
     "jade": "*",
     "less-middleware": "*",
     "jasmine-node": "",
-    "mongodb": "*"
+    "mongodb": "*",
+    "node-dev": "*"
   },
   "devDependencies": {},
   "optionalDependencies": {},

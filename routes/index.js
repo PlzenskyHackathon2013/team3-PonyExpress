@@ -79,8 +79,7 @@ exports.list =function(req, res){
  */
 exports.add =function(req, res){
   console.log('add a record - list');
-
-  var blob     = req.query.blob;
+  var blob     = req.body.blob;
   var username = global.username;
 
   //insert
@@ -101,7 +100,7 @@ exports.add =function(req, res){
  */
 exports.updateById =function(req, res){
   var id       = req.params.id;
-  var blob     = req.query.blob;
+  var blob     = req.body.blob;
   var username = global.username;
 
   db.collection('users', function(err, collection) {
