@@ -43,10 +43,10 @@ if ('development' == app.get('env')) {
 app.get('/', routes.homepage);
 
 //get all list
-app.get('/list/', index.list);
+app.get('/list', index.list);
 
 //add new hash
-app.post('/list/', index.add);
+app.post('/list', index.add);
 
 // edit hash
 // change to post
