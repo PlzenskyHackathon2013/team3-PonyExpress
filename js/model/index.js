@@ -2,7 +2,14 @@ define(['backbone', 'config'], function (Backbone, config) {
 
 	var ModelIndex = {
         url: function () {
-			return "";
+            var uri    = '/list';
+            var params = [];
+
+			if (!this.isNew()) {
+                params.push(this.get('id'));
+            }
+
+            return config.getUrl(uri, params);
 		},
     
         toJSON: function(options) {
