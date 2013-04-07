@@ -7,6 +7,7 @@ define(['backbone', 'underscore', 'text!template/list.html', 'config', 'collecti
 
 		events: {
 			'click #create':            '_onClickCreate',
+            'click .copy-password':     '_onCopyCreate',
 			'click .edit-password':     '_onClickEdit',
 			'click .delete-password':   '_onClickDelete'
 		},
@@ -48,6 +49,10 @@ define(['backbone', 'underscore', 'text!template/list.html', 'config', 'collecti
 			return config.indexes;
 		},
 
+        _onCopyCreate: function () {
+			config.router.navigate('create', {trigger: true});
+		},
+        
 		_onClickCreate: function () {
 			config.router.navigate('create', {trigger: true});
 		},

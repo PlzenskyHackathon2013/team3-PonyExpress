@@ -15,14 +15,17 @@ define(['backbone', 'underscore', 'text!template/delete.html', 'config', 'model/
 		},
 
 		render: function () {
-			var data = {id: 1, name: 'Name 1', username: 'test001', password: '123'};
+			var data = config.passwords.get(this.id).toJSON();
+
 			this.$el.html(this.template(data));
 		},
 
 
 		_onSubmit: function (e) {
 			e.preventDefault();
-			alert('Your password is now completely lost :-(\n(hey, developer, implement that!)');
+			
+			config.passwords.remove(config.passwords.get(this.id));	
+
 			config.router.navigate('list', {trigger: true});
 		},
 
