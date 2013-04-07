@@ -1,6 +1,7 @@
 define(['backbone', 'config'], function (Backbone, config) {
 
 	var ModelIndex = {
+
         url: function () {
             var uri    = '/list';
             var params = [];
@@ -11,15 +12,25 @@ define(['backbone', 'config'], function (Backbone, config) {
 
             return config.getUrl(uri, params);
 		},
-    
+
         toJSON: function(options) {
-            var encrypted = CryptoJS.AES.encrypt(JSON.stringify(this.attributes), this.options.password);
-            return encrypted.toString();
+            var json = Backbone.Model.prototype.toJSON.apply(this, arguments);
+            var pswd = this.options.password || '';
+
+            var encrypted = CryptoJS.AES.encrypt(JSON.stringify(json), pswd);
+
+            return {blob: encrypted.toString()};
         },
         
         parse: function(response, options) {
-            var decrypted = CryptoJS.AES.decrypt(JSON.parse(response), this.options.password);
-            return decrypted.toString(CryptoJS.enc.Utf8);
+            if (null == response.status) {
+                var decrypted = CryptoJS.AES.decrypt(response.blob, this.options.password);
+                attr = JSON.parse(decrypted.toString(CryptoJS.enc.Utf8));
+                return attr;
+            }
+            else {
+                return response;
+            }
         }
 	};
 	return Backbone.Model.extend(ModelIndex);

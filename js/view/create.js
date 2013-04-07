@@ -6,6 +6,7 @@ define(['backbone', 'underscore', 'text!template/create.html', 'config', 'model/
 		template: _.template(templateCreate),
 
 		events: {
+			'change #createForm-name':     '_onChangeName',
 			'change #createForm-username': '_onChangeUsername',
 			'change #createForm-password': '_onChangePassword',
 			'click #createForm-submit':    '_onSubmit',
@@ -23,6 +24,13 @@ define(['backbone', 'underscore', 'text!template/create.html', 'config', 'model/
 			return this;
 		},
 
+		_onChangeName: function (event) {
+			var name = $(event.target).val();
+			var id   = name.replace(/\ /, '-').toLowerCase(); 
+
+			this.model.set({name: name, id: id});
+		},
+
 		_onChangeUsername: function (event) {
 			this.model.set({username: $(event.target).val()});
 		},
@@ -34,11 +42,17 @@ define(['backbone', 'underscore', 'text!template/create.html', 'config', 'model/
 		_onSubmit: function (e) {
 			e.preventDefault();
 			//they are pswd same?
-			this.model.password = config.user.get('password');
+			this.model.options = this.model.options || {};
+			this.model.options.password = config.user.get('password');
 			this.model.save();
 
-			this.index.password = config.user.get('password');
+			this.index.options = this.index.options || {};
+			this.index.options.password = config.user.get('password');
 			this.index.save();
+
+			config.passwords.push(this.model);
+
+			config.router.navigate('list', {trigger: true});
 		},
 
 		_onClickCancel: function (e) {

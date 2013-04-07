@@ -18,7 +18,7 @@ define(['backbone', 'underscore', 'text!template/edit.html', 'config', 'model/pa
 
 		render: function () {
 			//mock
-			var data = {id: 1, name: 'Name 1', username: 'test001', password: '123'};
+			var data = config.passwords.get(this.id).toJSON();
 
 			this.$el.html(this.template(data));
 
